@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from .models import Todo
+from .forms import TodoForm
 
 # Function based view
 def todo_list(request):
@@ -22,12 +23,14 @@ class TodoListView(ListView):
     
 class TodoCreateView(CreateView):
     model = Todo
-    fields = ['title']
+    #fields = ['title']
+    form_class = TodoForm
     template_name = 'Todo/todo_create.html'
     success_url = reverse_lazy('todo-list')
 
 class TodoUpdateView(UpdateView):
     model = Todo
+    fields = ['title']
     template_name = 'Todo/todo_confirm_update.html'
     success_url = reverse_lazy('todo-list')
 

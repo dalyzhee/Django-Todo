@@ -23,8 +23,14 @@ A simple **CRUD (Create, Read, Update, Delete)** Todo List built with **Django**
 ### ✅ Completed Tasks
 ![Completed Tasks Screenshot](TodoApp/images/completedpage.png)
 
+### Update Page
+![Update page Screenshot](TodoApp/images/updatepage.png)
+
 ### Deleting Page
 ![Delete page Screenshot](TodoApp/images/deletepage.png)
+
+### Final Page
+![Final page Screenshot](TodoApp/images/finalhomepage.png)
 ---
 
 ## ⚙️ Installation

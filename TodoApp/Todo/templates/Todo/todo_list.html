@@ -25,6 +25,7 @@
         <small style="color: #999; margin-right: 15px;">
             {{ todo.created_at|date:"M d, Y" }}
         </small>
+        <a href="{% url 'todo-update' todo.pk %}" class="btn btn-warning btn-sm">update</a>
         <a href="{% url 'todo-delete' todo.pk %}" class="btn btn-danger btn-sm">Delete</a>
     </div>
     {% empty %}
