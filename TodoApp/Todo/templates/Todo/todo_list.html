@@ -1,0 +1,41 @@
+{% extends 'Todo/base.html' %}
+
+{% block content %}
+<h1>My TODO List</h1>
+
+<form method="post" action="{% url 'todo-create' %}" style="margin-bottom: 30px;">
+    {% csrf_token %}
+    <input type="text" name="title" placeholder="Add new todo..." 
+           required style="width: calc(100% - 120px); padding: 12px; 
+           border: 2px solid #ddd; border-radius: 5px; font-size: 16px;">
+    <button type="submit" class="btn btn-primary">Add</button>
+</form>
+
+<div class="todo-list">
+    {% for todo in Todo %}
+    <div style="display: flex; align-items: center; padding: 15px; 
+                border-bottom: 1px solid #eee;">
+        <input type="checkbox" {% if todo.completed %}checked{% endif %}
+               onchange="window.location.href='{% url 'todo-toggle' todo.pk %}'"
+               style="margin-right: 15px; width: 20px; height: 20px; cursor: pointer;">
+        <span style="flex: 1; {% if todo.completed %}text-decoration: line-through; 
+                     color: #999;{% endif %}">
+            {{ todo.title }}
+        </span>
+        <small style="color: #999; margin-right: 15px;">
+            {{ todo.created_at|date:"M d, Y" }}
+        </small>
+        <a href="{% url 'todo-delete' todo.pk %}" class="btn btn-danger btn-sm">Delete</a>
+    </div>
+    {% empty %}
+    <p style="text-align: center; color: #999; padding: 40px;">
+        No todos yet. Add one above!
+    </p>
+    {% endfor %}
+</div>
+
+<div style="margin-top: 20px; text-align: center; color: #666;">
+    Total: {{ Todo|length }} | 
+    Completed: {{ completed_count  }}
+</div>
+{% endblock %}

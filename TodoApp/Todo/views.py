@@ -13,21 +13,27 @@ def todo_list(request):
 class TodoListView(ListView):
     model = Todo
     template_name = 'Todo/todo_list.html'
-    context_object_name = Todo
+    context_object_name = 'Todo'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['completed_count'] = Todo.objects.filter(completed=True).count()
+        return context
     
 class TodoCreateView(CreateView):
     model = Todo
+    fields = ['title']
     template_name = 'Todo/todo_create.html'
     success_url = reverse_lazy('todo-list')
 
 class TodoUpdateView(UpdateView):
     model = Todo
-    template_name = 'Todo/todo_update.html'
+    template_name = 'Todo/todo_confirm_update.html'
     success_url = reverse_lazy('todo-list')
 
 class TodoDeleteView(DeleteView):
     model = Todo
-    template_name = 'Todo/todo_delete.html'
+    template_name = 'Todo/todo_confirm_delete.html'
     success_url = reverse_lazy('todo-list')
 
 # Function for toggling completed
